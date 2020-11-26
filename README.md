@@ -9,3 +9,5 @@
 - 강화 학습을 활용한 플레이어 조력 AI!
 
 #### 프로토 타입 플레이 영상
+
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/56291884/100357273-cc120680-3037-11eb-83ac-7e3afc725add.gif)
