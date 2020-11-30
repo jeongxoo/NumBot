@@ -109,7 +109,7 @@ public class Enemy : MonoBehaviour
 
     public void MagicShield() // 마법 방패 실행
     {
-        if (GameManager.instance.eHP <= 15) //체력이 15이하로 내려가면(20이 풀일떄 기준)
+        if (GameManager.instance.eHP <= 15 && GameManager.instance.eHP > 0) //체력이 15이하로 내려가면(20이 풀일떄 기준)
         {
             if(shieldOn) // 실드가 트루인지 확인
             {
@@ -139,7 +139,7 @@ public class Enemy : MonoBehaviour
 
     public void FireBall()
     {
-        if (GameManager.instance.eHP <= 10 )
+        if (GameManager.instance.eHP <= 10 && GameManager.instance.eHP > 0)
         {
             if (fireOn)
             {

@@ -117,9 +117,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff1b536f9321149e08b9bffd6157080e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shield: {fileID: 3874181032051598067}
   s_count: 0
   s_Destroy: 5
+  magicShield: {fileID: 3874181032051598067}
   fireBall: {fileID: 0}
 --- !u!61 &3874181032051598064
 BoxCollider2D:

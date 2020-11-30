@@ -19,6 +19,7 @@ public class GamePlay : MonoBehaviour
     public GameObject textEnergy;
     public GameObject textTime;
     public GameObject textEnergyGain;
+    public GameObject textUpgradeCost;
     public GameObject gamePlay;    
 
     // 캔버스 끄고 키기 위한거
@@ -38,12 +39,14 @@ public class GamePlay : MonoBehaviour
     public float changedEnergyTime;
     public int energy;
     public int changedEnergy;
+    public int needEnergy; // 업그레이드를 하기위해 필요한 에너지양을 저장하는 변수
 
     private void Awake()
     {
         changedEnergyTime = 1f;
         energyTime = changedEnergyTime;
         changedEnergy = 1;
+        needEnergy = 5;
 
         GameManager.instance.gTime = 60f;
         GameManager.instance.maxTime = GameManager.instance.gTime;
@@ -54,7 +57,8 @@ public class GamePlay : MonoBehaviour
     {
         GameManager.instance.PlayTime(textTime, gamePlay, inGame, timeOver);
         GetEnergy(textEnergy);
-        ShowEnergyGain(textEnergyGain);
+        ShowEnergyGain(textEnergyGain, textUpgradeCost);
+        ChangeAmountOfEnergyWhichUseToUpgradeProduction();
 
         Button1(energy);
         Button2(energy);
@@ -80,14 +84,27 @@ public class GamePlay : MonoBehaviour
 
     public void UpgradeEnergy()
     {
-        energy -= 5;
-        changedEnergy += 1;
+        energy -= needEnergy;
+        Debug.Log(changedEnergy + " 의 생산량을 가질 때 업그레이드 시 소모되는 비용" + needEnergy);
+        changedEnergy += 1;         
     }
 
-    public void ShowEnergyGain(GameObject energyGain)
+    public void ChangeAmountOfEnergyWhichUseToUpgradeProduction()
+    {
+        if (changedEnergy < 2)
+        {
+            return;
+        }
+        else
+        {
+            needEnergy = Mathf.CeilToInt(Mathf.Pow(1.8f, changedEnergy + 2));
+        }        
+    }
+
+    public void ShowEnergyGain(GameObject energyGain, GameObject upgradeCost)
     {
         energyGain.GetComponent<Text>().text = "에너지 생산량 : " + changedEnergy; // 남은 시간을 출력해주고
-
+        upgradeCost.GetComponent<Text>().text = "업그레이드 비용 : " + needEnergy;
     }
     #endregion Energy
 
@@ -187,7 +204,7 @@ public class GamePlay : MonoBehaviour
 
     public void UpgradeButton(int energy)
     {
-        if (energy >= 5)
+        if (energy >= needEnergy)
         {
             upgradeButton.interactable = true;
         }
