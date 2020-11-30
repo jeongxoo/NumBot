@@ -80,7 +80,14 @@ public class GamePlay : MonoBehaviour
 
     public void UpgradeEnergy()
     {
-        energy -= 5;
+        if (changedEnergy < 2)
+            energy -= 5;
+        else
+        {
+            energy = Mathf.RoundToInt( (energy - (changedEnergy * 5f * 0.75f)));
+            Debug.Log(changedEnergy + "레벨 에서 업그레이드 시 소모되는 비용" + Mathf.RoundToInt((energy - (changedEnergy * 5f * 0.75f))));
+        }
+
         changedEnergy += 1;
     }
 
