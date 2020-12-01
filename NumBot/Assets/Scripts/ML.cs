@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.UI;
 
 public class ML : MonoBehaviour
 {
@@ -26,6 +27,13 @@ public class ML : MonoBehaviour
 
     public float addResult; // 예측값의 평균을 계산하기위해 예측값을 다 담아주는 변수
 
+    public GamePlay gamePlay;
+    public Enemy enemy;
+
+    public float mlTime;
+
+    public GameObject mlText;
+
     void Start()
     {
         TrainData = new List<DataSet>();
@@ -42,7 +50,23 @@ public class ML : MonoBehaviour
         saveShield = new int[kNumber];
         saveResult = new float[kNumber];
 
+        mlTime = 5f;
+
         ReadData(); // 데이터 읽어오는 함수 실행
+    }
+
+    private void Update()
+    {
+        if (mlTime > 0)
+        {
+            mlTime -= Time.deltaTime;
+        }
+        else
+        {
+            CalculateDistance();
+            mlText.GetComponent<Text>().text = "행동 추천 : " + bestLabel;
+            mlTime = 5f;
+        }
     }
 
     public void ReadData()
@@ -78,10 +102,10 @@ public class ML : MonoBehaviour
 
     public void CalculateDistance()
     {
-        UserData.time = Random.Range(0, 60);
-        UserData.enemyHp = Random.Range(0, 20);
-        UserData.energyProduction = Random.Range(0, 5);
-        UserData.energyAmount = Random.Range(0, 50);
+        UserData.time = 60 - GameManager.instance.gTime;
+        UserData.enemyHp = GameManager.instance.eHP;
+        UserData.energyProduction = gamePlay.changedEnergy;
+        UserData.energyAmount = gamePlay.energy;
         UserData.shieldOn = Random.Range(0, 1);
 
         Debug.Log("time : " + UserData.time);
