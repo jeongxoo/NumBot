@@ -115,7 +115,7 @@ MonoBehaviour:
   m_MinSize: {x: 881, y: 492}
   m_MaxSize: {x: 18002, y: 14042}
   vertical: 0
-  controlID: 25
+  controlID: 18
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_MinSize: {x: 605, y: 492}
   m_MaxSize: {x: 14001, y: 14042}
   vertical: 1
-  controlID: 26
+  controlID: 19
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_MinSize: {x: 605, y: 221}
   m_MaxSize: {x: 12005, y: 4021}
   vertical: 0
-  controlID: 27
+  controlID: 20
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -273,7 +273,7 @@ MonoBehaviour:
   m_MinSize: {x: 331, y: 271}
   m_MaxSize: {x: 14001, y: 10021}
   vertical: 0
-  controlID: 68
+  controlID: 46
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -291,7 +291,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 849
+    width: 846
     height: 271
   m_MinSize: {x: 231, y: 271}
   m_MaxSize: {x: 10001, y: 10021}
@@ -315,9 +315,9 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 849
+    x: 846
     y: 0
-    width: 795
+    width: 798
     height: 271
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 4000, y: 4000}
@@ -392,7 +392,7 @@ MonoBehaviour:
   m_Position:
     m_Target: {x: 0, y: 0, z: 90.41667}
     speed: 2
-    m_Value: {x: 0, y: 0, z: 90.41667}
+    m_Value: {x: 960, y: 540, z: 0}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -444,7 +444,7 @@ MonoBehaviour:
   m_Size:
     m_Target: 10.207152
     speed: 2
-    m_Value: 10.207152
+    m_Value: 1101.4536
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -500,7 +500,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: aebbffff08c2ffff2cc3ffffaec3ffff46c5ffff34c6ffffcec7ffff58c8ffffdac8ffffbecbffffb0d2ffff32d3ffff18d4ffff24d5ffff8cdaffffbadaffffdedcffffd0e0ffff52e1ffff58e3ffff56e4ffff96e9ffff18eaffff30ecffffcaecffffeeeeffff96efffffa6f1ffff60fbffff304100001846000050460000a2460000dc4a00000e4b0000464b0000984b0000da4f000098500000fc5100006a520000ea5700007a580000745b00005068000088680000dc6800003e6c0000926c00001c6d0000a66d0000fa6d0000846e00001c740000707400005a760000ae76000038770000c2770000fc77000016780000
+      m_ExpandedIDs: 1ce5fffff4f0ffff1af7ffff76f8ffff60fbfffff4ffffffc83a0000323b0000fc410000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -671,7 +671,7 @@ MonoBehaviour:
   m_ViewDataDictionary: {fileID: 0}
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 18388
+  m_LastSelectedObjectID: -5146
 --- !u!114 &21
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -787,7 +787,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -1920
     y: 697
-    width: 848
+    width: 845
     height: 250
   m_ViewDataDictionary: {fileID: 0}
   m_SearchFilter:
@@ -803,20 +803,20 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Image
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Image
   m_LastFoldersGridSize: -1
   m_LastProjectPath: /Users/jeongxoo/Documents/GitHub/aa/NumBot
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 58}
-    m_SelectedIDs: 6c390000
-    m_LastClickedID: 14700
-    m_ExpandedIDs: 0000000060390000663900006a390000a839000000ca9a3b
+    scrollPos: {x: 0, y: 10}
+    m_SelectedIDs: 66390000
+    m_LastClickedID: 14694
+    m_ExpandedIDs: 000000006039000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -888,7 +888,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 0}
+      m_ClientGUIView: {fileID: 12}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
@@ -921,9 +921,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: -1071
+    x: -1074
     y: 697
-    width: 793
+    width: 796
     height: 250
   m_ViewDataDictionary: {fileID: 0}
 --- !u!114 &24
