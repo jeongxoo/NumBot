@@ -18,12 +18,12 @@ public class ML : MonoBehaviour
     public float[] labelSet; // k개의 레이블들을 담기 위해
     public int countNumber; // 몇번째 거리, 몇번째 트레인데이터 등을 확인하기 위해
 
-    public float[] saveTime; //데이터를 죽인다음 다시 살리기 위해
-    public int[] saveHP; //데이터를 죽인다음 다시 살리기 위해
-    public int[] saveEnergyProduction; //데이터를 죽인다음 다시 살리기 위해
-    public int[] saveEnergy; //데이터를 죽인다음 다시 살리기 위해
-    public int[] saveShield;
-    public float[] saveResult;
+    public List<float> saveTime; //데이터를 죽인다음 다시 살리기 위해
+    public List<int> saveHP; //데이터를 죽인다음 다시 살리기 위해
+    public List<int> saveEnergyProduction; //데이터를 죽인다음 다시 살리기 위해
+    public List<int> saveEnergy; //데이터를 죽인다음 다시 살리기 위해
+    public List<int> saveShield;
+    public List<float> saveResult;
 
     public float addResult; // 예측값의 평균을 계산하기위해 예측값을 다 담아주는 변수
 
@@ -32,23 +32,24 @@ public class ML : MonoBehaviour
 
     public float mlTime;
 
-    public GameObject mlText;
+    public Image recommendBox;
+    public Sprite[] recommendResult;
 
     void Start()
     {
         TrainData = new List<DataSet>();
         distance = new List<float>();
 
-        kNumber = 3; // 사용자 지정 k
+        kNumber = 10; // 사용자 지정 k
 
         labelSet = new float[kNumber];
 
-        saveTime = new float[kNumber];
-        saveHP = new int[kNumber];        
-        saveEnergyProduction = new int[kNumber];
-        saveEnergy = new int[kNumber];
-        saveShield = new int[kNumber];
-        saveResult = new float[kNumber];
+        saveTime = new List<float>();
+        saveHP = new List<int>();        
+        saveEnergyProduction = new List<int>();
+        saveEnergy = new List<int>();
+        saveShield = new List<int>();
+        saveResult = new List<float>();
 
         mlTime = 5f;
 
@@ -64,7 +65,7 @@ public class ML : MonoBehaviour
         else
         {
             CalculateDistance();
-            mlText.GetComponent<Text>().text = "행동 추천 : " + bestLabel;
+            PrintKNN();
             mlTime = 5f;
         }
     }
@@ -102,27 +103,27 @@ public class ML : MonoBehaviour
 
     public void CalculateDistance()
     {
-        UserData.time = 60 - GameManager.instance.gTime;
+        UserData.time = GameManager.instance.gTime;
         UserData.enemyHp = GameManager.instance.eHP;
         UserData.energyProduction = gamePlay.changedEnergy;
         UserData.energyAmount = gamePlay.energy;
-        UserData.shieldOn = Random.Range(0, 1);
+        FindShield(enemy.shieldOn);
 
-        Debug.Log("time : " + UserData.time);
-        Debug.Log("eHP : " + UserData.enemyHp);
-        Debug.Log("energyProduction : " + UserData.energyProduction);
-        Debug.Log("energyAmount : " + UserData.energyAmount);
-        Debug.Log("shieldOn : " + UserData.shieldOn);
+        //Debug.Log("time : " + UserData.time);
+        //Debug.Log("eHP : " + UserData.enemyHp);
+        //Debug.Log("energyProduction : " + UserData.energyProduction);
+        //Debug.Log("energyAmount : " + UserData.energyAmount);
+       // Debug.Log("shieldOn : " + UserData.shieldOn);
 
         distance.Clear();
 
         for (int i = 0; i < TrainData.Count; i++)
         {
-            distance.Add(Mathf.Pow(Twice((TrainData[i].time - UserData.time) / 10)
+            distance.Add(Mathf.Pow(Twice(TrainData[i].time- UserData.time)
                 + Twice(TrainData[i].enemyHp - UserData.enemyHp)
                 + Twice(TrainData[i].energyProduction - UserData.energyProduction)
-                + Twice((TrainData[i].energyAmount - UserData.energyAmount) / 3)
-                + Twice(TrainData[i].shieldOn - UserData.shieldOn)
+                + Twice(TrainData[i].energyAmount - UserData.energyAmount)
+                + Twice((TrainData[i].shieldOn - UserData.shieldOn))
                 , 0.5f)); // 거리계산, 재시작횟수 가중치 높히기 위해 *10
 
         }
@@ -159,24 +160,24 @@ public class ML : MonoBehaviour
                 }
             }
 
-            saveTime[j] = TrainData[countNumber].time; //데이터를 데이터 집합에서 삭제하기전 다시 살리기 위해 백업
-            saveHP[j] = TrainData[countNumber].enemyHp;
-            saveEnergyProduction[j] = TrainData[countNumber].energyProduction;
-            saveEnergy[j] = TrainData[countNumber].energyAmount;
-            saveShield[j] = TrainData[countNumber].shieldOn;
-            saveResult[j] = TrainData[countNumber].result;
+            saveTime.Add(TrainData[countNumber].time); //데이터를 데이터 집합에서 삭제하기전 다시 살리기 위해 백업
+            saveHP.Add(TrainData[countNumber].enemyHp);
+            saveEnergyProduction.Add(TrainData[countNumber].energyProduction);
+            saveEnergy.Add(TrainData[countNumber].energyAmount);
+            saveShield.Add(TrainData[countNumber].shieldOn);
+            saveResult.Add(TrainData[countNumber].result);
 
             distance.Remove(distance[countNumber]); // 가장 가까운 거리데이터를 제거
             TrainData.Remove(TrainData[countNumber]); // 가장 가까운 거리데이터의 결과를 가져온 트레인데이터를 제거
 
-            Debug.Log("111"+TrainData.Count);
+            //Debug.Log("111"+TrainData.Count);
 
             labelSet[j] = bestLabel; // 찾아낸 최근접 데이터의 레이블을 수집
             addResult += labelSet[j]; // 레이블들의 평균을 계산하기 위해 한곳에 계속 더해둠                                
         }
 
         bestLabel = Mathf.Round(addResult / kNumber); // 최종적으로 입력 데이터의 레이블을 구함
-        Debug.Log("반올림 직전의 값은? : " + addResult / kNumber);
+        //Debug.Log("반올림 직전의 값은? : " + addResult / kNumber);
         Debug.Log("선택 결과는?? : " + bestLabel);
 
         for (int i = 0; i < kNumber; i++) // k개의 데이터, 레이블을 고르는 과정에서 삭제한 트레인 데이터를 복구시켜줌
@@ -188,11 +189,53 @@ public class ML : MonoBehaviour
             saveData.energyAmount = saveEnergy[i];
             saveData.shieldOn = saveShield[i];
             saveData.result = saveResult[i];
-
             TrainData.Add(saveData);
         }
-        Debug.Log("222"+TrainData.Count);
 
+        saveTime.Clear();
+        saveHP.Clear();
+        saveEnergyProduction.Clear();
+        saveEnergy.Clear();
+        saveShield.Clear();
+        //Debug.Log("222"+TrainData.Count);
+
+    }
+
+    public void PrintKNN()
+    {
+        switch (bestLabel)
+        {
+            case 1:
+                recommendBox.sprite = recommendResult[0];
+                break;
+            case 2:
+                recommendBox.sprite = recommendResult[1];
+                break;
+            case 3:
+                recommendBox.sprite = recommendResult[2];
+                break;
+            case 4:
+                recommendBox.sprite = recommendResult[3];
+                break;
+            case 5:
+                recommendBox.sprite = recommendResult[4];
+                break;
+            case 6:
+                recommendBox.sprite = recommendResult[5];
+                break;
+        }
+    }
+
+    public void FindShield(bool on)
+    {
+        if (on)
+        {
+            UserData.shieldOn = 0;
+        }
+        else
+        {
+            UserData.shieldOn = 1;
+        }
     }
 
     public float Twice(float a)
