@@ -37,6 +37,9 @@ public class ML : MonoBehaviour
 
     private int recommendtime;
 
+    public bool switch_dataset;
+    private StringReader stringReader_set;
+
     void Start()
     {
         TrainData = new List<DataSet>();
@@ -79,9 +82,22 @@ public class ML : MonoBehaviour
     public void ReadData()
     {
         TrainData.Clear();
-        //TextAsset textFile = Resources.Load("Train_modify") as TextAsset;
-        TextAsset textFile = Resources.Load("Train") as TextAsset;//리소스 폴더안의 트레인 파일을 가져 
-        StringReader stringReader = new StringReader(textFile.text); // 파일열기
+        /*
+        if (switch_dataset == true)
+        {
+            TextAsset textFile = Resources.Load("Train1") as TextAsset;
+            StringReader stringReader_set = new StringReader(textFile.text); // 파일열기
+        }
+        else
+        {
+            TextAsset textFile = Resources.Load("Train") as TextAsset;//리소스 폴더안의 트레인 파일을 가져 
+            StringReader stringReader_set = new StringReader(textFile.text); // 파일열기
+        }*/
+
+        TextAsset textFile = Resources.Load("Train2") as TextAsset;
+        //TextAsset textFile = Resources.Load("Train1") as TextAsset;
+        //TextAsset textFile = Resources.Load("Train") as TextAsset;
+        StringReader stringReader = new StringReader(textFile.text);
 
         while (stringReader != null) //데이터가 존재한다면 계속 읽어오기   
         {
