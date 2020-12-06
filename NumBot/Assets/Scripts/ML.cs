@@ -38,6 +38,7 @@ public class ML : MonoBehaviour
     private int recommendtime;
 
     public bool switch_dataset;
+    public int switch_dataset_index;
     private StringReader stringReader_set;
 
     void Start()
@@ -59,8 +60,18 @@ public class ML : MonoBehaviour
         recommendtime = 1;
         mlTime = 0f;
 
-
-        ReadData(); // 데이터 읽어오는 함수 실행
+        switch(switch_dataset_index)
+        {
+            case 1:
+                ReadData("Train");
+                break;
+            case 2:
+                ReadData("Train1");
+                break;
+            case 3:
+                ReadData("Train2");
+                break;
+        }
     }
 
     private void Update()
@@ -79,24 +90,30 @@ public class ML : MonoBehaviour
         }
     }
 
-    public void ReadData()
+    public void ReadData(string dataname)
     {
         TrainData.Clear();
         /*
+        #region UseIF
         if (switch_dataset == true)
         {
-            TextAsset textFile = Resources.Load("Train1") as TextAsset;
-            StringReader stringReader_set = new StringReader(textFile.text); // 파일열기
+            TextAsset textFile = Resources.Load(dataname) as TextAsset;
+            StringReader stringReader_set = new StringReader(textFile.text);
         }
         else
         {
-            TextAsset textFile = Resources.Load("Train") as TextAsset;//리소스 폴더안의 트레인 파일을 가져 
-            StringReader stringReader_set = new StringReader(textFile.text); // 파일열기
-        }*/
-
-        TextAsset textFile = Resources.Load("Train2") as TextAsset;
+            TextAsset textFile = Resources.Load("Train") as TextAsset;
+            StringReader stringReader_set = new StringReader(textFile.text);
+        }
+        StringReader stringReader = stringReader_set;
+        //TextAsset textFile = Resources.Load("Train2") as TextAsset;
         //TextAsset textFile = Resources.Load("Train1") as TextAsset;
         //TextAsset textFile = Resources.Load("Train") as TextAsset;
+
+        #endregion UseIF
+        */
+        Debug.Log(dataname);
+        TextAsset textFile = Resources.Load(dataname) as TextAsset;
         StringReader stringReader = new StringReader(textFile.text);
 
         while (stringReader != null) //데이터가 존재한다면 계속 읽어오기   

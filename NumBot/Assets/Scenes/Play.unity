@@ -1099,7 +1099,6 @@ MonoBehaviour:
   gamePlay: {fileID: 1042824863}
   enemy: {fileID: 831694344}
   mlTime: 0
-  mlText: {fileID: 0}
   recommendBox: {fileID: 1472586768}
   recommendResult:
   - {fileID: 21300000, guid: acfd36eea7a5d4cdf82f6afd2cf2bc6f, type: 3}
@@ -1108,6 +1107,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: fbb0ea888b8b6427aab19c518cb9e4b8, type: 3}
   - {fileID: 21300000, guid: 50f290d489f504f39bc65c00552db158, type: 3}
   - {fileID: 21300000, guid: 5763d4b8116dd4887b83060f3408f133, type: 3}
+  switch_dataset: 0
+  switch_dataset_index: 2
 --- !u!4 &696656073
 Transform:
   m_ObjectHideFlags: 0
