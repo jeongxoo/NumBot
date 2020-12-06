@@ -35,6 +35,8 @@ public class ML : MonoBehaviour
     public Image recommendBox;
     public Sprite[] recommendResult;
 
+    private int recommendtime;
+
     void Start()
     {
         TrainData = new List<DataSet>();
@@ -51,7 +53,9 @@ public class ML : MonoBehaviour
         saveShield = new List<int>();
         saveResult = new List<float>();
 
-        mlTime = 5f;
+        recommendtime = 1;
+        mlTime = 0f;
+
 
         ReadData(); // 데이터 읽어오는 함수 실행
     }
@@ -64,16 +68,19 @@ public class ML : MonoBehaviour
         }
         else
         {
+            recommendtime++;
             CalculateDistance();
+            Debug.Log(recommendtime + "번 째 추천");
             PrintKNN();
-            mlTime = 5f;
+            mlTime = 2f;
         }
     }
 
     public void ReadData()
     {
         TrainData.Clear();
-        TextAsset textFile = Resources.Load("Train") as TextAsset; //리소스 폴더안의 트레인 파일을 가져 
+        //TextAsset textFile = Resources.Load("Train_modify") as TextAsset;
+        TextAsset textFile = Resources.Load("Train") as TextAsset;//리소스 폴더안의 트레인 파일을 가져 
         StringReader stringReader = new StringReader(textFile.text); // 파일열기
 
         while (stringReader != null) //데이터가 존재한다면 계속 읽어오기   
@@ -125,7 +132,6 @@ public class ML : MonoBehaviour
                 + Twice(TrainData[i].energyAmount - UserData.energyAmount)
                 + Twice((TrainData[i].shieldOn - UserData.shieldOn))
                 , 0.5f)); // 거리계산, 재시작횟수 가중치 높히기 위해 *10
-
         }
 
         ChooseData();
